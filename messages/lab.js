@@ -20,7 +20,7 @@ console.log("In my callback function, readyState = " + xhr.readyState);
 		for (i = 0; i < data.length; i++) {
 			messages += "<p>" + data[i]['username'] + " - " + data[i]["content"] + "</p>";
 		}
-		document.getElementById("message").innerHTML = messages;
+		document.getElementById("messages").innerHTML = messages;
 		
 		}
 }
