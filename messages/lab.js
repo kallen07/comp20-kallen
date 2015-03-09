@@ -3,7 +3,7 @@ function parse() {
 	xhr = new XMLHttpRequest();
 
 	// Set up the request
-	var url = "http://tuftsdev.github.io/comp20-kallen/messages/data.json";
+	var url = "http://messagehub.herokuapp.com/messages.json";
 	xhr.open("get", url , true);
 
 	// Execute the request
