@@ -2,18 +2,15 @@
 xhr = new XMLHttpRequest();
 
 // Set up the request
-xhr.open("get", "http://tuftsdev.github.io/comp20-kallen/messages/data.json", true);
-
-// Set up handler for the response
-xhr.onreadystatechange = myCallbackFunction;
+var url = "http://tuftsdev.github.io/comp20-kallen/messages/data.json";
+xhr.open("get", url , true);
 
 // Execute the request
 xhr.send();
 
-function myCallbackFunction() {
-console.log("In my callback function, readyState = " + xhr.readyState);
+// Set up handler for the response
+xhr.onreadystatechange = function() {
 	if (xhr.readyState == 4 && xhr.status == 200) {
-		console.log("got data back!");
 		data = JSON.parse(xhr.responseText);
 
 		var messages = "";
@@ -23,5 +20,5 @@ console.log("In my callback function, readyState = " + xhr.readyState);
 
 		document.getElementById("messages").innerHTML = messages;
 		
-		}
+	}
 }
