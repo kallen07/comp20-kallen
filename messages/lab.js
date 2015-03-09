@@ -13,7 +13,7 @@ xhr.send();
 function myCallbackFunction() {
 console.log("In my callback function, readyState = " + xhr.readyState);
 	if (xhr.readyState == 4 && xhr.status == 200) {
-		console.log)"got data back!");
+		console.log("got data back!");
 		data = JSON.parse(xhr.responseText);
 
 		var messages;
