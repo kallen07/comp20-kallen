@@ -2,7 +2,7 @@
 xhr = new XMLHttpRequest();
 
 // Set up the request
-xhr.open("get", "https://github.com/tuftsdev/comp20-kallen/blob/gh-pages/messages/data.json", true);
+xhr.open("get", "http://tuftsdev.github.io/comp20-kallen/messages/data.json", true);
 
 // Set up handler for the response
 xhr.onreadystatechange = myCallbackFunction;
