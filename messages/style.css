@@ -1,1 +1,4 @@
-/* Your CSS here... */
+#messages {
+	font-family: "Caviar Dreams", "Champagne & Limousines", Neoteric, Helvetica;
+	background-color: blue;
+}

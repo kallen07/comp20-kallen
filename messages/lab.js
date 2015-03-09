@@ -15,14 +15,12 @@ console.log("In my callback function, readyState = " + xhr.readyState);
 	if (xhr.readyState == 4 && xhr.status == 200) {
 		console.log("got data back!");
 		data = JSON.parse(xhr.responseText);
-		console.log("the raw data is:" + data);
 
-		var messages;
+		var messages = "";
 		for (i = 0; i < data.length; i++) {
-			messages += "<p>" + data[i]['username'] + " - " + data[i]["content"] + "</p>";
+			messages += "<p>" + data[i]['username'] + ": " + data[i]["content"] + "</p>";
 		}
 
-		console.log("the formatted data is: " + messages);
 		document.getElementById("messages").innerHTML = messages;
 		
 		}
