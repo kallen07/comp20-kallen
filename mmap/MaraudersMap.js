@@ -61,7 +61,6 @@ function getData()
 	xhr.onreadystatechange = function()  {
     if (xhr.readyState == 4 && xhr.status == 200) {
 		data = JSON.parse(xhr.responseText);
-		console.log(data);
 		editLogin();
 		renderMap();
      }
@@ -113,7 +112,6 @@ function renderMap()
 	});
 	marker.setMap(map);
 
-	console.log(login);
 	var my_marker = "<strong>" + marker.title + "</strong></br> " + login
 
 	// Open info window on click of marker
@@ -143,7 +141,7 @@ function createMarker(person)
   	relative_dist = Math.round(relative_dist * 10000) / 10000;  
 
   	var info = "<strong>" + person.login + "</strong></br> " + 
-  				"Distance from me: " + relative_dist;
+  				"Distance from me: " + relative_dist + " miles";
 
   	google.maps.event.addListener(marker, 'click', function() {
     	infowindow.close();
