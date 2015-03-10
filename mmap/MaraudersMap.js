@@ -71,7 +71,6 @@ function getData()
 
 function formatData() 
 {
-	userArray[i]
 	for (var i = 0; i < data.length; i++) {
 		userArray[i] = data.login[i];
 		latArray[i] = data.lat[i];
