@@ -11,6 +11,8 @@ var map;
 var marker;
 var places;
 var login; 
+var infowindow = new google.maps.InfoWindow();
+
 
 // initalizes the map and calls myLocation to get data to display on the map
 function init()
@@ -82,7 +84,7 @@ function editLogin()
 	var seconds= mydate.getSeconds();
 	if ( seconds < 10 )
 		seconds = "0"+seconds;
-	login = "logged in at: " + hour + ":" + minute + ":" + seconds + " on " 
+	login = "Logged in at: " + hour + ":" + minute + ":" + seconds + " on " 
 			+ montharray[month] + " " + daym + ", " + year;
 }
 
@@ -92,10 +94,6 @@ function renderMap()
   
 	// Update map and go there...
 	map.panTo(me);
-
-	var infowindow = new google.maps.InfoWindow({
-		content: login
-	});
 
 	// Create a marker
 	var my_image = 'cat.jpg';
@@ -139,7 +137,6 @@ function callback(results, status)
 
 function createMarker(place)
 {
-	var infowindow = new google.maps.InfoWindow();
   	var placeLoc = place.geometry.location;
   	var marker = new google.maps.Marker({
     	map: map,
