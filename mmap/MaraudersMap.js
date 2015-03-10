@@ -112,7 +112,7 @@ function renderMap()
 	google.maps.event.addListener(marker, 'click', function() {
 		infowindow.close();
 		console.log(login);
-		infowindow.setContent(marker.content);
+		infowindow.setContent(login);
     	infowindow.open(map, marker);
 	});
 
