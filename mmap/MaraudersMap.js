@@ -125,7 +125,7 @@ function renderMap()
 
 	// create markers using data from the database API
 	for (var i = 0; i < data.length; i++) {
-		if( data[i].login != JeremyMaletic )  // don't want to map myself twice
+		if( data[i].login != "JeremyMaletic" )  // don't want to map myself twice
 			createMarker(data[i]);
 	}
 }
