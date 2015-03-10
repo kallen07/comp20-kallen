@@ -69,21 +69,6 @@ function getData()
 }
 
 
-// formats the data returned from the database API into 3 parallel arrays
-function formatData() 
-{
-	for (var i = 0; i < data.length; i++) {
-		userArray[i] = data[i].login;
-		latArray[i] = data[i].lat;
-		lngArray[i] = data[i].lng;
-		console.log(userArray);
-		console.log(latArray);
-		console.log(lngArray);
-		createMarker(results[i]);
-		}
-}
-
-
 // edits the login time to be displayed on my personal icon
 // credits to www.javascriptkit.com for skeleton of this code
 function editLogin()
@@ -109,6 +94,23 @@ function editLogin()
 			+ montharray[month] + " " + daym + ", " + year;
 }
 
+
+// formats the data returned from the database API into 3 parallel arrays
+function formatData() 
+{
+	for (var i = 0; i < data.length; i++) {
+		userArray[i] = data[i].login;
+		latArray[i] = data[i].lat;
+		lngArray[i] = data[i].lng;
+		console.log(userArray);
+		console.log(latArray);
+		console.log(lngArray);
+		createMarker(results[i]);
+		}
+}
+
+
+// displays the map on the screen 
 function renderMap()
 {
 	me = new google.maps.LatLng(myLat, myLng);
@@ -126,6 +128,7 @@ function renderMap()
 	});
 	marker.setMap(map);
 
+	console.log(login);
 	var my_marker = "<strong>" + marker.title + "</strong></br> " + login + 
 					"</br>" + "My latitute: " + myLat + "</br>" + "My longitute: " +
 					myLng;
