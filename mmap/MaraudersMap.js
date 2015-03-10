@@ -72,7 +72,7 @@ function renderMap()
   marker = new google.maps.Marker({
     position: me,
     title: "Here I Am!",
-    animation: google.maps.Animation.DROP,
+    // animation: google.maps.Animation.DROP,
     icon: my_image
   });
   marker.setMap(map);
