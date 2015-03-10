@@ -165,17 +165,18 @@ function renderMap()
 }
 */
 
-function createMarker(place)
+function createMarker(person)
 {
-  	var placeLoc = place.geometry.location;
+  	// var placeLoc = place.geometry.location;   // fix this
+  	var place = new google.maps.LatLng(person.lat, person.lng);
   	var marker = new google.maps.Marker({
     	map: map,
-    	position: place.geometry.location
+    	position: place
   	});
 
   	google.maps.event.addListener(marker, 'click', function() {
     	infowindow.close();
-    	infowindow.setContent(place.name);
+    	infowindow.setContent(person.user);
     	infowindow.open(map, this);
   	});
 }
