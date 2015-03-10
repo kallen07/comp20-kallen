@@ -13,9 +13,9 @@ var places;
 var login; 
 var infowindow = new google.maps.InfoWindow();
 var data;   // to hold the data returned by the database API
-var userArray;
-var latArray;
-var lngArray;
+var userArray = [];
+var latArray = [];
+var lngArray = [];
 
 
 // initalizes the map and calls myLocation to get data to display on the map
