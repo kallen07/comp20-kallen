@@ -11,8 +11,6 @@ var map;
 var marker;
 var places;
 var login; 
-var infowindow = new google.maps.InfoWindow();
-
 
 // initalizes the map and calls myLocation to get data to display on the map
 function init()
@@ -112,7 +110,7 @@ function renderMap()
 	// Open info window on click of marker
 	google.maps.event.addListener(marker, 'click', function() {
 		infowindow.close();
-		infowindow.setContent(infowindow.content);
+		infowindow.setContent();
     	infowindow.open(map, marker);
 	});
 
@@ -139,25 +137,26 @@ function callback(results, status)
 
 function createMarker(place)
 {
-  var placeLoc = place.geometry.location;
-  var marker = new google.maps.Marker({
-    map: map,
-    position: place.geometry.location
-  });
+	var infowindow = new google.maps.InfoWindow();
+  	var placeLoc = place.geometry.location;
+  	var marker = new google.maps.Marker({
+    	map: map,
+    	position: place.geometry.location
+  	});
 
-  google.maps.event.addListener(marker, 'click', function() {
-    infowindow.close();
-    infowindow.setContent(place.name);
-    infowindow.open(map, this);
-  });
+  	google.maps.event.addListener(marker, 'click', function() {
+    	infowindow.close();
+    	infowindow.setContent(place.name);
+    	infowindow.open(map, this);
+  	});
 }
 
 
 // fix this to make it work
 function drop() {
-  for (var i =0; i < markerArray.length; i++) {
-    setTimeout(function() {
-      addMarkerMethod();
-    }, i * 200);
-  }
+  	for (var i =0; i < markerArray.length; i++) {
+    	setTimeout(function() {
+      	addMarkerMethod();
+    	}, i * 200);
+  	}
 }
