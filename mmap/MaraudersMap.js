@@ -101,7 +101,7 @@ function renderMap()
 	var my_image = 'cat.jpg';
 	marker = new google.maps.Marker({
 		position: me,
-		title: "Here I Am!",
+		title: "Here I am!",
 		// animation: google.maps.Animation.DROP,
 		icon: my_image,
 		content: login
@@ -112,7 +112,7 @@ function renderMap()
 	google.maps.event.addListener(marker, 'click', function() {
 		infowindow.close();
 		console.log(login);
-		infowindow.setContent("<strong>" + marker.title + " " + login +"</strong>");
+		infowindow.setContent("<strong>" + marker.title + "</strong></br> " + login );
     	infowindow.open(map, marker);
 	});
 
