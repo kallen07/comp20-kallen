@@ -26,8 +26,7 @@ function init()
 }
 
 
-// gets my location, calls a function to get data from the database, calls a function 
-// to render the map
+// gets my location, calls a function to get data from the database
 function getMyLocation() 
 {
 	// the navigator.geolocation object is supported on your browser
@@ -45,6 +44,8 @@ function getMyLocation()
 
 
 // POSTs to the database API and parses the data returned
+// calls editLogin() to set the my login time, calls formatData() to format
+// the data from the database, calls renderMap() to display the map on the screen
 function getData() 
 	{
 	xhr = new XMLHttpRequest();
@@ -102,11 +103,7 @@ function formatData()
 		userArray[i] = data[i].login;
 		latArray[i] = data[i].lat;
 		lngArray[i] = data[i].lng;
-		console.log(userArray);
-		console.log(latArray);
-		console.log(lngArray);
-		// createMarker(results[i]);
-		}
+	}
 }
 
 
@@ -139,6 +136,11 @@ function renderMap()
 		infowindow.setContent(my_marker);
     	infowindow.open(map, marker);
 	});
+
+	// create markers using data from the database API
+	for (var i = 0; i < results.length; i++) {
+		createMarker(results[i]);
+	}
 
 	// Calling Google Places API
 	/*var request = {
