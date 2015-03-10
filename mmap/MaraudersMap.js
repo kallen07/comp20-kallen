@@ -104,7 +104,6 @@ function renderMap()
 	marker = new google.maps.Marker({
 		position: me,
 		title: "Here I am!",
-		// animation: google.maps.Animation.DROP,
 		icon: my_image,
 	});
 	marker.setMap(map);
