@@ -11,6 +11,7 @@ var map;
 var marker;
 var infowindow = new google.maps.InfoWindow();
 var places;
+var login; 
 
 function init()
 {
@@ -55,9 +56,36 @@ function getData()
       data = JSON.parse(xhr.responseText);
 
       console.log(data);
-      }
+
+      editLogin();
+     }
       
     }
+}
+
+// edits the login time to be displayed on my personal icon
+// credits to www.javascriptkit.com for some of this code
+function editLogin()
+{
+	var mydate=new Date()
+	var year=mydate.getYear()
+	if (year < 1000)
+		year+=1900
+	var month=mydate.getMonth()
+	var daym=mydate.getDate()
+	if ( daym < 10 )
+		daym= "0" + daym
+	var montharray=new Array("January","February","March","April","May","June","July","August",
+						"September","October","November","December")
+	var hour=mydate.getHours();
+	var minute= mydate.getMinutes()
+	if ( minute < 10 )
+		minute = "0"+minute;
+	var seconds= mydate.getSeconds();
+	if ( seconds < 10 )
+		seconds = "0"+seconds;
+	login = "logged in at: " + hour + ":" + minute + ":" + seconds + " on " 
+			+ montharray[month] + " " + daym + ", " + year;
 }
 
 function renderMap()
@@ -74,12 +102,14 @@ function renderMap()
     title: "Here I Am!",
     // animation: google.maps.Animation.DROP,
     icon: my_image
+    content: login;
   });
   marker.setMap(map);
     
   // Open info window on click of marker
   google.maps.event.addListener(marker, 'click', function() {
     infowindow.setContent(marker.title);
+    infowindo.setContent(marker.content);
     infowindow.open(map, marker);
   });
   
