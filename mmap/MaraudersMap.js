@@ -104,13 +104,14 @@ function renderMap()
 		title: "Here I Am!",
 		// animation: google.maps.Animation.DROP,
 		icon: my_image,
+		content: login
 	});
 	marker.setMap(map);
 
 	// Open info window on click of marker
 	google.maps.event.addListener(marker, 'click', function() {
 		infowindow.close();
-		infowindow.setContent(infowindow.content);
+		infowindow.setContent(marker.content;
     	infowindow.open(map, marker);
 	});
 
