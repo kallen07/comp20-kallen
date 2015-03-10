@@ -36,7 +36,6 @@ function getMyLocation()
 			myLat = position.coords.latitude;
 			myLng = position.coords.longitude;
 			getData();
-			renderMap();
 		});
 	}
 	else {
@@ -64,6 +63,7 @@ function getData()
 		console.log(data);
 		editLogin();
 		formatData();
+		renderMap();
      }
     }
 }
@@ -105,7 +105,7 @@ function formatData()
 		console.log(userArray);
 		console.log(latArray);
 		console.log(lngArray);
-		createMarker(results[i]);
+		// createMarker(results[i]);
 		}
 }
 
