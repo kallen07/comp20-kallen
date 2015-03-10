@@ -41,7 +41,11 @@ function getData()
   var url = "https://secret-about-box.herokuapp.com/sendLocation";
   xhr.open("post", url , true);
 
-  params = "login=JeremyMaletic&lat=" +myLat + "&lng=" +myLng;
+  console.log("my Lat is: " + myLat);
+  console.log("my Long is: " +myLng);
+
+
+  params = "login=JeremyMaletic&lat=" + myLat + "&lng=" + myLng;
   xhr.send(params);
 
   xhr.onreadystatechange = function()  {
