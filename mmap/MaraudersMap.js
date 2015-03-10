@@ -63,7 +63,6 @@ function getData()
 		data = JSON.parse(xhr.responseText);
 		console.log(data);
 		editLogin();
-		// formatData();
 		renderMap();
      }
     }
@@ -96,18 +95,6 @@ function editLogin()
 }
 
 
-/*
-// formats the data returned from the database API into 3 parallel arrays
-function formatData() 
-{
-	for (var i = 0; i < data.length; i++) {
-		userArray[i] = data[i].login;
-		latArray[i] = data[i].lat;
-		lngArray[i] = data[i].lng;
-	}
-}
-*/
-
 // displays the map on the screen 
 function renderMap()
 {
@@ -127,9 +114,7 @@ function renderMap()
 	marker.setMap(map);
 
 	console.log(login);
-	var my_marker = "<strong>" + marker.title + "</strong></br> " + 
-					login + "</br>" + "My latitute: " + myLat + "</br>" 
-					+ "My longitute: " + myLng;
+	var my_marker = "<strong>" + marker.title + "</strong></br> " + login
 
 	// Open info window on click of marker
 	google.maps.event.addListener(marker, 'click', function() {
@@ -140,7 +125,8 @@ function renderMap()
 
 	// create markers using data from the database API
 	for (var i = 0; i < data.length; i++) {
-		createMarker(data[i]);
+		if( data[i].login != JeremyMaletic )  // don't want to map myself twice
+			createMarker(data[i]);
 	}
 }
 
@@ -154,10 +140,10 @@ function createMarker(person)
   	});
 
   	var relative_dist = calcDist(person);
+  	relative_dist = Math.round(relative_dist * 10000) / 10000;  
 
-  	var info = "<strong>" + person.login + "</strong></br> " + "Latitute: " 
-  			+ person.lat + "</br>" + "Longitute: " + person.lng + "</br>" 
-  			+ "Distance from me: " + relative_dist;
+  	var info = "<strong>" + person.login + "</strong></br> " + 
+  				"Distance from me: " + relative_dist;
 
   	google.maps.event.addListener(marker, 'click', function() {
     	infowindow.close();
@@ -165,7 +151,6 @@ function createMarker(person)
     	infowindow.open(map, this);
   	});
 }
-
 
 
 // calculates the distance between the point given and me
@@ -195,6 +180,7 @@ function calcDist(person)
 
 	return d * 0.00062137; // to convert from meters to miles
 }
+
 
 
 // fix this to make it work
