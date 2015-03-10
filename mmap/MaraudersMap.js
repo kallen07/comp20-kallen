@@ -44,10 +44,6 @@ function getData()
 
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-  console.log("my Lat is: " + myLat);
-  console.log("my Long is: " + myLng);
-
-
   params = "login=JeremyMaletic&lat=" + myLat + "&lng=" + myLng;
   xhr.send(params);
 
@@ -101,8 +97,8 @@ function renderMap()
     position: me,
     title: "Here I Am!",
     // animation: google.maps.Animation.DROP,
-    icon: my_image
-    content: login;
+    icon: my_image,
+    content: login
   });
   marker.setMap(map);
     
