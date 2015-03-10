@@ -38,10 +38,10 @@ function getData()
 {
   xhr = new XMLHttpRequest();
 
-  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
   var url = "https://secret-about-box.herokuapp.com/sendLocation";
   xhr.open("POST", url, true);
+
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
   console.log("my Lat is: " + myLat);
   console.log("my Long is: " + myLng);
