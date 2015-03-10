@@ -31,7 +31,6 @@ function getMyLocation()
   else {
     alert("Geolocation is not supported by your web browser.  What a shame!");
   }
-  console.log("Leaving getMyLocation()");
 }
 
 
@@ -42,7 +41,7 @@ function getData()
   var url = "https://secret-about-box.herokuapp.com/sendLocation";
   xhr.open("post", url , true);
 
-  params = "login=JeremyMaletic&lat=myLat&lng=myLng";
+  params = "login=JeremyMaletic&" +lat=myLat + "&" lng=myLng;
   xhr.send(params);
 
   xhr.onreadystatechange = function()  {
