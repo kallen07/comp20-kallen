@@ -138,8 +138,8 @@ function renderMap()
 	});
 
 	// create markers using data from the database API
-	for (var i = 0; i < results.length; i++) {
-		createMarker(results[i]);
+	for (var i = 0; i < data.length; i++) {
+		createMarker(data[i]);
 	}
 
 	// Calling Google Places API
