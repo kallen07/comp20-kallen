@@ -9,11 +9,9 @@ var myOptions = {
     };
 var map;
 var marker;
-var infowindow = new google.maps.InfoWindow({
-		content: login
-	});
 var places;
 var login; 
+var infowindow = new google.maps.InfoWindow();
 
 
 // initalizes the map and calls myLocation to get data to display on the map
