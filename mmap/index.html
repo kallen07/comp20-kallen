@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+    <title> Marauder's Map </title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&amp;libraries=places"></script>
+    <link rel="stylesheet" href="map_style.css" />
+
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=API_KEY">
+      /* This URL is the location of a JavaScript file that loads all of the symbols and definitions you need for using the Google Maps API. */
+    </script>
+
+    <script type="text/javascript">
+
+      function initialize() {
+        var mapOptions = {
+          center: { lat: -34.397, lng: 150.644 },  
+          zoom: 8
+        };
+        var map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions); // map constructor 
+      }
+
+      function loadScript() {
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp' + '&signed_in=true&callback=initialize';  
+        // only want to execute initalize after the API has fully loaded
+
+        document.body.appendChild(script);
+      }
+
+      window.onload = loadScript;
+
+    </script>
+
+  </head>
+
+  <body onload = "initalize()" >   
+  <!-- map only placed on the page after it is fully loaded-->
+    <div id="map-canvas"></div>
+  </body>
+
+</html>
+
+
+<!-- JeremyMaletic -->
