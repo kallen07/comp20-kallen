@@ -12,7 +12,7 @@ var marker;
 var infowindow = new google.maps.InfoWindow();
 var places;
 
-function init() 
+function init()
 {
   map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
   getMyLocation();
@@ -41,7 +41,7 @@ function getData()
   var url = "https://secret-about-box.herokuapp.com/sendLocation";
   xhr.open("post", url , true);
 
-  params = "login=JeremyMaletic&" +lat=myLat + "&" lng=myLng;
+  params = "login=JeremyMaletic&lat=" +myLat + "&lng=" +myLng;
   xhr.send(params);
 
   xhr.onreadystatechange = function()  {
