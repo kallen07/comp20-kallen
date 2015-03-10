@@ -174,16 +174,17 @@ function createMarker(person)
 function calcDist(person) 
 {
 
-	var lat1 = myLat;
-	var lon1 = myLng;
-	var lat2 = person.lat;
-	var lon2 = person.lng;
+	// convert latitudes and longitudes to radians
+	var lat1 = myLat * (Math.PI/180);
+	var lon1 = myLng * (Math.PI/180);
+	var lat2 = person.lat * (Math.PI/180);
+	var lon2 = person.lng * (Math.PI/180);
 
 	var R = 6371000; // metres
-	var φ1 = lat1.toRadians();
-	var φ2 = lat2.toRadians();
-	var Δφ = (lat2-lat1).toRadians();
-	var Δλ = (lon2-lon1).toRadians();
+	var φ1 = lat1;
+	var φ2 = lat2;
+	var Δφ = (lat2-lat1);
+	var Δλ = (lon2-lon1);
 
 	var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
     	    Math.cos(φ1) * Math.cos(φ2) *
