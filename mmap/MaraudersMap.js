@@ -15,17 +15,15 @@ var places;
 function initalize()
 {
   map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-  console.log("Call before getMyLocation()");
   getMyLocation();
-  console.log("Call after getMyLocation()");
 }
 
 function getMyLocation() {
-  console.log("In getMyLocation()");
   if (navigator.geolocation) { // the navigator.geolocation object is supported on your browser
-    navigator.geolocation.getCurrentPosition(function(position) {
+    navigator.geolocation.getCurrentPosition( function(position) {
       myLat = position.coords.latitude;
       myLng = position.coords.longitude;
+      getData();
       renderMap();
     });
   }
@@ -33,6 +31,28 @@ function getMyLocation() {
     alert("Geolocation is not supported by your web browser.  What a shame!");
   }
   console.log("Leaving getMyLocation()");
+}
+
+
+function getData() 
+{
+  xhr = new XMLHttpRequest();
+
+  var url = "https://secret-about-box.herokuapp.com/sendLocation";
+  xhr.open("post", url , true;
+
+  params = "login=JeremyMaletic&lat=myLat&lng=myLng";
+  xhr.send(params);
+
+  xhr.onreadystatechange = function()  {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      data = JSON.parse(xhr.responseText);
+
+      console.log(data);
+      }
+      
+    }
+  }
 }
 
 function renderMap()
