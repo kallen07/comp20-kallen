@@ -69,12 +69,13 @@ function getData()
 }
 
 
+// formats the data returned from the database API into 3 parallel arrays
 function formatData() 
 {
 	for (var i = 0; i < data.length; i++) {
-		userArray[i] = data.login[i];
-		latArray[i] = data.lat[i];
-		lngArray[i] = data.lng[i];
+		userArray[i] = data[i].login;
+		latArray[i] = data[i].lat;
+		lngArray[i] = data[i].lng;
 		console.log(userArray);
 		console.log(latArray);
 		console.log(lngArray);
@@ -122,15 +123,17 @@ function renderMap()
 		title: "Here I am!",
 		// animation: google.maps.Animation.DROP,
 		icon: my_image,
-		content: login
 	});
 	marker.setMap(map);
+
+	var my_marker = "<strong>" + marker.title + "</strong></br> " + login + 
+					"</br>" + "My latitute: " + myLat + "</br>" + "My longitute: " +
+					myLng;
 
 	// Open info window on click of marker
 	google.maps.event.addListener(marker, 'click', function() {
 		infowindow.close();
-		console.log(login);
-		infowindow.setContent("<strong>" + marker.title + "</strong></br> " + login );
+		infowindow.setContent(my_marker);
     	infowindow.open(map, marker);
 	});
 
