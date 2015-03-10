@@ -13,9 +13,9 @@ var places;
 var login; 
 var infowindow = new google.maps.InfoWindow();
 var data;   // to hold the data returned by the database API
-var userArray = [];
-var latArray = [];
-var lngArray = [];
+//var userArray = [];
+//var latArray = [];
+//var lngArray = [];
 
 
 // initalizes the map and calls myLocation to get data to display on the map
@@ -63,7 +63,7 @@ function getData()
 		data = JSON.parse(xhr.responseText);
 		console.log(data);
 		editLogin();
-		formatData();
+		// formatData();
 		renderMap();
      }
     }
@@ -82,8 +82,8 @@ function editLogin()
 	var daym=mydate.getDate()
 	if ( daym < 10 )
 		daym= "0" + daym
-	var montharray=new Array("January","February","March","April","May","June","July","August",
-						"September","October","November","December")
+	var montharray=new Array("January","February","March","April","May",
+			"June","July","August","September","October","November","December")
 	var hour=mydate.getHours();
 	var minute= mydate.getMinutes()
 	if ( minute < 10 )
@@ -96,6 +96,7 @@ function editLogin()
 }
 
 
+/*
 // formats the data returned from the database API into 3 parallel arrays
 function formatData() 
 {
@@ -105,7 +106,7 @@ function formatData()
 		lngArray[i] = data[i].lng;
 	}
 }
-
+*/
 
 // displays the map on the screen 
 function renderMap()
@@ -126,9 +127,9 @@ function renderMap()
 	marker.setMap(map);
 
 	console.log(login);
-	var my_marker = "<strong>" + marker.title + "</strong></br> " + login + 
-					"</br>" + "My latitute: " + myLat + "</br>" + "My longitute: " +
-					myLng;
+	var my_marker = "<strong>" + marker.title + "</strong></br> " + 
+					login + "</br>" + "My latitute: " + myLat + "</br>" 
+					+ "My longitute: " + myLng;
 
 	// Open info window on click of marker
 	google.maps.event.addListener(marker, 'click', function() {
@@ -141,29 +142,7 @@ function renderMap()
 	for (var i = 0; i < data.length; i++) {
 		createMarker(data[i]);
 	}
-
-	// Calling Google Places API
-	/*var request = {
-		location: me,
-		radius: '500',
-		types: ['food']
-	};
-	service = new google.maps.places.PlacesService(map);
-	service.search(request, callback);
-	*/
 }
-
-// Taken from http://code.google.com/apis/maps/documentation/javascript/places.html
-/*function callback(results, status)
-{
-	if (status == google.maps.places.PlacesServiceStatus.OK) {
-		places = results;
-		for (var i = 0; i < results.length; i++) {
-		createMarker(results[i]);
-		}
-	}
-}
-*/
 
 function createMarker(person)
 {
@@ -174,14 +153,46 @@ function createMarker(person)
     	position: place
   	});
 
-  	var info = "<strong>" + person.login + "</strong></br> " + "Latitute: " + person.lat 
-  				+ "</br>" + "Longitute: " + person.lng;
+  	var relative_dist = calcDist(person);
+
+  	var info = "<strong>" + person.login + "</strong></br> " + "Latitute: " 
+  			+ person.lat + "</br>" + "Longitute: " + person.lng + "</br>" 
+  			+ "Distance from me: " + relative_dist;
 
   	google.maps.event.addListener(marker, 'click', function() {
     	infowindow.close();
     	infowindow.setContent(info);
     	infowindow.open(map, this);
   	});
+}
+
+
+
+// calculates the distance between the point given and me
+// credits to http://www.movable-type.co.uk/scripts/latlong.html 
+// for the Haversine formula
+function calcDist(person) 
+{
+
+	var lat1 = myLat;
+	var lon1 = myLng;
+	var lat2 = person.lat;
+	var lon2 = person.lng;
+
+	var R = 6371000; // metres
+	var φ1 = lat1.toRadians();
+	var φ2 = lat2.toRadians();
+	var Δφ = (lat2-lat1).toRadians();
+	var Δλ = (lon2-lon1).toRadians();
+
+	var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+    	    Math.cos(φ1) * Math.cos(φ2) *
+        	Math.sin(Δλ/2) * Math.sin(Δλ/2);
+	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+	var d = R * c;
+
+	return d * 0.00062137; // to convert from meters to miles
 }
 
 
