@@ -10,7 +10,7 @@
 	+ Displays locations of people in the class on the map and info window that displays login name and distance in miles away from you
 	+ The basics (e.g., README file, proper folder name)
 
-### Aspects that have not been correctly implemented (yet):
+### Aspects that have not been correctly implemented:
 	+ n/a
 
 ### Collaboration/discussion:
