@@ -71,9 +71,9 @@ function renderMap()
   var my_image = 'cat.jpg';
   marker = new google.maps.Marker({
     position: me,
-    title: "Here I Am!"
+    title: "Here I Am!",
     animation: google.maps.Animation.DROP,
-    icon: my_image;
+    icon: my_image
   });
   marker.setMap(map);
     
