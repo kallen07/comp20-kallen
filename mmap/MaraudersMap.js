@@ -86,36 +86,40 @@ function editLogin()
 
 function renderMap()
 {
-  me = new google.maps.LatLng(myLat, myLng);
+	me = new google.maps.LatLng(myLat, myLng);
   
-  // Update map and go there...
-  map.panTo(me);
+	// Update map and go there...
+	map.panTo(me);
 
-  // Create a marker
-  var my_image = 'cat.jpg';
-  marker = new google.maps.Marker({
-    position: me,
-    title: "Here I Am!",
-    // animation: google.maps.Animation.DROP,
-    icon: my_image,
-    content: login
-  });
-  marker.setMap(map);
-    
-  // Open info window on click of marker
-  google.maps.event.addListener(marker, 'click', function() {
-    infowindow.setContent( <p> marker.title </p> + <p> marker.content </p> );
-    infowindow.open(map, marker);
-  });
-  
-  // Calling Google Places API
-  var request = {
-    location: me,
-    radius: '500',
-    types: ['food']
-  };
-  service = new google.maps.places.PlacesService(map);
-  service.search(request, callback);
+	var infowindow = new google.maps.InfoWindow({
+		title: "Here I Am!",
+		content: login
+	});
+
+	// Create a marker
+	var my_image = 'cat.jpg';
+	marker = new google.maps.Marker({
+		position: me,
+		title: "Here I Am!",
+		// animation: google.maps.Animation.DROP,
+		icon: my_image,
+	});
+	marker.setMap(map);
+
+	// Open info window on click of marker
+	google.maps.event.addListener(marker, 'click', function() {
+		infowindow.setContent(infowindow);
+		infowindow.open(map, marker);
+	});
+
+	// Calling Google Places API
+	var request = {
+		location: me,
+		radius: '500',
+		types: ['food']
+	};
+	service = new google.maps.places.PlacesService(map);
+	service.search(request, callback);
 }
 
 // Taken from http://code.google.com/apis/maps/documentation/javascript/places.html
