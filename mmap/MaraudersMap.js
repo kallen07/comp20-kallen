@@ -8,10 +8,14 @@ var myOptions = {
     	mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 var map;
-var my_marker;
+var marker;
 var places;
 var login; 
 var infowindow = new google.maps.InfoWindow();
+var data;   // to hold the data returned by the database API
+var userArray;
+var latArray;
+var lngArray;
 
 
 // initalizes the map and calls myLocation to get data to display on the map
@@ -67,8 +71,16 @@ function getData()
 
 function formatData() 
 {
-
-
+	userArray[i]
+	for (var i = 0; i < data.length; i++) {
+		userArray[i] = data.login[i];
+		latArray[i] = data.lat[i];
+		lngArray[i] = data.lng[i];
+		console.log(userArray);
+		console.log(latArray);
+		console.log(lngArray);
+		createMarker(results[i]);
+		}
 }
 
 
@@ -106,21 +118,21 @@ function renderMap()
 
 	// Create a marker
 	var my_image = 'cat.jpg';
-	my_marker = new google.maps.Marker({
+	marker = new google.maps.Marker({
 		position: me,
 		title: "Here I am!",
 		// animation: google.maps.Animation.DROP,
 		icon: my_image,
 		content: login
 	});
-	my_marker.setMap(map);
+	marker.setMap(map);
 
 	// Open info window on click of marker
-	google.maps.event.addListener(my_marker, 'click', function() {
+	google.maps.event.addListener(marker, 'click', function() {
 		infowindow.close();
 		console.log(login);
-		infowindow.setContent("<strong>" + my_marker.title + "</strong></br> " + login );
-    	infowindow.open(map, my_marker);
+		infowindow.setContent("<strong>" + marker.title + "</strong></br> " + login );
+    	infowindow.open(map, marker);
 	});
 
 	// Calling Google Places API
@@ -149,12 +161,12 @@ function renderMap()
 function createMarker(place)
 {
   	var placeLoc = place.geometry.location;
-  	var other_marker = new google.maps.Marker({
+  	var marker = new google.maps.Marker({
     	map: map,
     	position: place.geometry.location
   	});
 
-  	google.maps.event.addListener(other_marker, 'click', function() {
+  	google.maps.event.addListener(marker, 'click', function() {
     	infowindow.close();
     	infowindow.setContent(place.name);
     	infowindow.open(map, this);
