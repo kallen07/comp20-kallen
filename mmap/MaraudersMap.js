@@ -124,7 +124,9 @@ function renderMap()
 	// create markers using data from the database API
 	for (var i = 0; i < data.length; i++) {
 		if( data[i].login != "JeremyMaletic" )  // don't want to map myself twice
-			createMarker(data[i]);
+			setTimeout(function() {   // drop markers on the page one at a time
+      			createMarker(data[i]);
+    		}, i * 200);
 	}
 }
 
@@ -185,7 +187,7 @@ function calcDist(person)
 function drop() {
   	for (var i =0; i < markerArray.length; i++) {
     	setTimeout(function() {
-      	addMarkerMethod();
-    	}, i * 200);
+      		addMarkerMethod();
+    		}, i * 200);
   	}
 }
