@@ -174,9 +174,12 @@ function createMarker(person)
     	position: place
   	});
 
+  	var info = "<strong>" + person.login + "</strong></br> " + "Latitute: " + person.lat 
+  				+ "</br>" + "Longitute: " + person.lng;
+
   	google.maps.event.addListener(marker, 'click', function() {
     	infowindow.close();
-    	infowindow.setContent(person.user);
+    	infowindow.setContent(info);
     	infowindow.open(map, this);
   	});
 }
