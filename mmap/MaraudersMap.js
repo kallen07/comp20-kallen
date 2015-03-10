@@ -8,7 +8,7 @@ var myOptions = {
     	mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 var map;
-var marker;
+var my_marker;
 var places;
 var login; 
 var infowindow = new google.maps.InfoWindow();
@@ -59,9 +59,18 @@ function getData()
 		data = JSON.parse(xhr.responseText);
 		console.log(data);
 		editLogin();
+		formatData();
      }
     }
 }
+
+
+function formatData() 
+{
+
+
+}
+
 
 // edits the login time to be displayed on my personal icon
 // credits to www.javascriptkit.com for skeleton of this code
@@ -92,40 +101,41 @@ function renderMap()
 {
 	me = new google.maps.LatLng(myLat, myLng);
   
-	// Update map and go there...
+	// Update map and go there
 	map.panTo(me);
 
 	// Create a marker
 	var my_image = 'cat.jpg';
-	marker = new google.maps.Marker({
+	my_marker = new google.maps.Marker({
 		position: me,
 		title: "Here I am!",
 		// animation: google.maps.Animation.DROP,
 		icon: my_image,
 		content: login
 	});
-	marker.setMap(map);
+	my_marker.setMap(map);
 
 	// Open info window on click of marker
-	google.maps.event.addListener(marker, 'click', function() {
+	google.maps.event.addListener(my_marker, 'click', function() {
 		infowindow.close();
 		console.log(login);
-		infowindow.setContent("<strong>" + marker.title + "</strong></br> " + login );
-    	infowindow.open(map, marker);
+		infowindow.setContent("<strong>" + my_marker.title + "</strong></br> " + login );
+    	infowindow.open(map, my_marker);
 	});
 
 	// Calling Google Places API
-	var request = {
+	/*var request = {
 		location: me,
 		radius: '500',
 		types: ['food']
 	};
 	service = new google.maps.places.PlacesService(map);
 	service.search(request, callback);
+	*/
 }
 
 // Taken from http://code.google.com/apis/maps/documentation/javascript/places.html
-function callback(results, status)
+/*function callback(results, status)
 {
 	if (status == google.maps.places.PlacesServiceStatus.OK) {
 		places = results;
@@ -134,16 +144,17 @@ function callback(results, status)
 		}
 	}
 }
+*/
 
 function createMarker(place)
 {
   	var placeLoc = place.geometry.location;
-  	var marker = new google.maps.Marker({
+  	var other_marker = new google.maps.Marker({
     	map: map,
     	position: place.geometry.location
   	});
 
-  	google.maps.event.addListener(marker, 'click', function() {
+  	google.maps.event.addListener(other_marker, 'click', function() {
     	infowindow.close();
     	infowindow.setContent(place.name);
     	infowindow.open(map, this);
