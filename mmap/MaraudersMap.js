@@ -68,9 +68,12 @@ function renderMap()
   map.panTo(me);
 
   // Create a marker
+  var my_image = 'cat.jpg';
   marker = new google.maps.Marker({
     position: me,
     title: "Here I Am!"
+    animation: google.maps.Animation.DROP,
+    icon: my_image;
   });
   marker.setMap(map);
     
@@ -94,7 +97,6 @@ function renderMap()
 function callback(results, status)
 {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
-    alert("Got places back!");
     places = results;
     for (var i = 0; i < results.length; i++) {
       createMarker(results[i]);
@@ -117,3 +119,12 @@ function createMarker(place)
   });
 }
 
+
+// fix this to make it work
+function drop() {
+  for (var i =0; i < markerArray.length; i++) {
+    setTimeout(function() {
+      addMarkerMethod();
+    }, i * 200);
+  }
+}
