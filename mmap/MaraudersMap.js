@@ -3,7 +3,7 @@ var myLng = 0;
 var request = new XMLHttpRequest();
 var me = new google.maps.LatLng(myLat, myLng);
 var myOptions = {
-    	zoom: 15, // The larger the zoom number, the bigger the zoom
+    	zoom: 15,
     	center: me,
     	mapTypeId: google.maps.MapTypeId.ROADMAP
     };
@@ -13,9 +13,6 @@ var places;
 var login; 
 var infowindow = new google.maps.InfoWindow();
 var data;   // to hold the data returned by the database API
-//var userArray = [];
-//var latArray = [];
-//var lngArray = [];
 
 
 // initalizes the map and calls myLocation to get data to display on the map
@@ -124,11 +121,12 @@ function renderMap()
 	// create markers using data from the database API
 	for (var i = 0; i < data.length; i++) {
 		if( data[i].login != "JeremyMaletic" )  // don't want to map myself twice
-			// drop markers on the page one at a time
-			setTimeout( createMarker(data[i]), i * 200 );
+			createMarker(data[i]);
 	}
 }
 
+
+// creates a marker giving a position (person) and puts it on the map
 function createMarker(person)
 {
   	// var placeLoc = place.geometry.location;   // fix this
@@ -180,13 +178,3 @@ function calcDist(person)
 	return d * 0.00062137; // to convert from meters to miles
 }
 
-
-
-// fix this to make it work
-function drop() {
-  	for (var i =0; i < markerArray.length; i++) {
-    	setTimeout(function() {
-      		addMarkerMethod();
-    		}, i * 200);
-  	}
-}
