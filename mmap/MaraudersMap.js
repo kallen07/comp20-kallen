@@ -96,7 +96,6 @@ function renderMap()
 	map.panTo(me);
 
 	var infowindow = new google.maps.InfoWindow({
-		title: "Here I Am!",
 		content: login
 	});
 
@@ -113,7 +112,6 @@ function renderMap()
 	// Open info window on click of marker
 	google.maps.event.addListener(marker, 'click', function() {
 		infowindow.close();
-    	infowindow.setContent(marker.title);
     	infowindow.open(map, marker);
 	});
 
