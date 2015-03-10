@@ -110,7 +110,6 @@ function renderMap()
 	// Open info window on click of marker
 	google.maps.event.addListener(marker, 'click', function() {
 		infowindow.close();
-		infowindow.setContent();
     	infowindow.open(map, marker);
 	});
 
