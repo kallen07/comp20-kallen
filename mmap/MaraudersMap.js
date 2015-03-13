@@ -12,10 +12,9 @@ var marker;
 var places;
 var login; 
 var infowindow = new google.maps.InfoWindow();
-var data;   // to hold the data returned by the database API
+var data;  
 
 
-// initalizes the map and calls myLocation to get data to display on the map
 function init()
 {
 	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
@@ -23,7 +22,6 @@ function init()
 }
 
 
-// gets my location, calls a function to get data from the database
 function getMyLocation() 
 {
 	// the navigator.geolocation object is supported on your browser
@@ -40,9 +38,6 @@ function getMyLocation()
 }
 
 
-// POSTs to the database API and parses the data returned
-// calls editLogin() to set the my login time, calls formatData() to format
-// the data from the database, calls renderMap() to display the map on the screen
 function getData() 
 	{
 	xhr = new XMLHttpRequest();
@@ -65,8 +60,6 @@ function getData()
 }
 
 
-// edits the login time to be displayed on my personal icon
-// credits to www.javascriptkit.com for skeleton of this code
 function editLogin()
 {
 	var mydate=new Date()
@@ -91,15 +84,13 @@ function editLogin()
 }
 
 
-// displays the map on the screen 
+
 function renderMap()
 {
 	me = new google.maps.LatLng(myLat, myLng);
   
-	// Update map and go there
 	map.panTo(me);
 
-	// Create a marker
 	var my_image = 'cat.jpg';
 	marker = new google.maps.Marker({
 		position: me,
@@ -110,25 +101,21 @@ function renderMap()
 
 	var my_marker = "<strong>" + marker.title + "</strong></br> " + login
 
-	// Open info window on click of marker
 	google.maps.event.addListener(marker, 'click', function() {
 		infowindow.close();
 		infowindow.setContent(my_marker);
     	infowindow.open(map, marker);
 	});
 
-	// create markers using data from the database API
 	for (var i = 0; i < data.length; i++) {
-		if( data[i].login != "JeremyMaletic" )  // don't want to map myself twice
+		if( data[i].login != "JeremyMaletic" )
 			createMarker(data[i]);
 	}
 }
 
 
-// creates a marker giving a position (person) and puts it on the map
 function createMarker(person)
 {
-  	// var placeLoc = place.geometry.location;   // fix this
   	var place = new google.maps.LatLng(person.lat, person.lng);
   	var marker = new google.maps.Marker({
     	map: map,
@@ -149,19 +136,14 @@ function createMarker(person)
 }
 
 
-// calculates the distance between the point given and me
-// credits to http://www.movable-type.co.uk/scripts/latlong.html 
-// for the Haversine formula
 function calcDist(person) 
 {
-
-	// convert latitudes and longitudes to radians
 	var lat1 = myLat * (Math.PI/180);
 	var lon1 = myLng * (Math.PI/180);
 	var lat2 = person.lat * (Math.PI/180);
 	var lon2 = person.lng * (Math.PI/180);
 
-	var R = 6371000; // metres
+	var R = 6371000; 
 	var φ1 = lat1;
 	var φ2 = lat2;
 	var Δφ = (lat2-lat1);
@@ -174,6 +156,6 @@ function calcDist(person)
 
 	var d = R * c;
 
-	return d * 0.00062137; // to convert from meters to miles
+	return d * 0.00062137; 
 }
 
