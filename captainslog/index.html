@@ -6,45 +6,29 @@
 	<title>Captain's Log</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script>
-	  $(document).ready( init() );
-
-		function init() {
-			if( localStorage["CPLmessages"] == undefined ) {
-				messagesArray = [];
-				count = 0;
-			}
-			else {
-				messagesArray = localStorage["CPLmessages"]; 
-				count = localStorage["CPLnum"];
-			}
-
-			reload();
-		}
-
+	  $(document).ready( function() {
+	  	reload();
+	  	$("#msg").change(store);
 		function reload() {
-			$.each( messagesArray, function( index, value ) {
-				to_add = "<p>" + messagesArray[index] + "</p>\n";
-					$("div#log").prepend(to_add);
-			});
-
-			$( "#msg" ).change( store() );
-		};
+				for (key in localStorage) {
+					if ( key.charAt(0) == "C" && key.charAt(1) == "P" && key.charAt(2) == "L"
+						&& localStorage[key] != undefined ) {
+						to_add = "<p>" + localStorage[key] + "</p>\n";
+						$("div#log").prepend("<p>" + to_add + "</p>");
+					}
+				}
+			}
 			
-
 		function store() {
 			message = document.getElementById("msg").value;
 			if (message != undefined) {
 				time = format_date();
 				timeStamp = new Date();
-				messagesArray[count + 1] = time + " " + message;
-				count ++;
-				localStorage["CPLmessages"] = messagesArray;
-				localStorage["CPLnum"] = count;
+				localStorage["CPL" + timeStamp.getTime()] = time + " " + message;
+				console.log(time + message);
 				$("div#log").prepend(time + " " + message);
 			}
 		}
-
-
 		// credits to www.javascriptkit.com for skeleton code
 		function format_date() {
 			var currentTime = new Date();
@@ -65,35 +49,11 @@
 				seconds = "0"+seconds;
 			var time = hour + ":" + minute + ":" + seconds;
 			var year = currentTime.getFullYear();
-
 			currentTime = dayArray[dayOfWeek] + " " + monthArray[month] + " " 
 				+ dayOfMonth + " " + time + " " + year;
 			return currentTime;
 		}
-
-		/*function reload() {
-				for (key in localStorage) {
-					if ( key.charAt(0) == "C" && key.charAt(1) == "P" && key.charAt(2) == "L"
-						&& localStorage[key] != undefined ) {
-						to_add = "<p>" + localStorage[key] + "</p>\n";
-						$("div#log").prepend("<p>" + to_add + "</p>");
-					}
-				}
-		}*/
-
-		/*function store() {
-
-			message = document.getElementById("msg").value;
-			if (message != undefined) {
-				time = format_date();
-				timeStamp = new Date();
-				localStorage["CPL" + timeStamp.getTime()] = time + " " + message;
-				console.log(time + message);
-				$("div#log").prepend(time + " " + message);
-			}
-		}
-		*/
-
+	});
 	</script>
 </head>
 
@@ -103,6 +63,5 @@
 	<div id="log"></div>
 </body>
 </html>
-
 
 
