@@ -6,29 +6,45 @@
 	<title>Captain's Log</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script>
-	  $(document).ready( function() {
-	  	reload();
-	  	$("#msg").change(store);
+		$(document).ready( function() {
+
+			reload();
+			$( "#msg" ).change( store );
+
+		});
+
 		function reload() {
-				for (key in localStorage) {
-					if ( key.charAt(0) == "C" && key.charAt(1) == "P" && key.charAt(2) == "L"
-						&& localStorage[key] != undefined ) {
-						to_add = "<p>" + localStorage[key] + "</p>\n";
-						$("div#log").prepend("<p>" + to_add + "</p>");
-					}
+			var keyArray = new Array();
+
+			for (key in localStorage) {
+				if( key.length == 13 ) {
+					keyArray.push(key);
 				}
 			}
+
+			keyArray.sort( numOrdD );
+
+			output = "";
+			$.each(keyArray, function( index, value ) {
+				output = output + localStorage[value];
+			});
+			
+			$("div#log").html(output);
+		}
 			
 		function store() {
 			message = document.getElementById("msg").value;
-			if (message != undefined) {
+			document.getElementById("msg").value = "";
+			if (message != undefined && message != "") {
 				time = format_date();
-				timeStamp = new Date();
-				localStorage["CPL" + timeStamp.getTime()] = time + " " + message;
-				console.log(time + message);
-				$("div#log").prepend(time + " " + message);
+				timeStamp = Date.now();
+				output = "<p>" + time + " - " + message + "</p>"
+				localStorage[timeStamp] = output;
+
+				reload();
 			}
 		}
+
 		// credits to www.javascriptkit.com for skeleton code
 		function format_date() {
 			var currentTime = new Date();
@@ -53,7 +69,12 @@
 				+ dayOfMonth + " " + time + " " + year;
 			return currentTime;
 		}
-	});
+
+		// credits to http://javascript.about.com/library/blsort.htm for these
+		// sorting functions
+		function numOrdA(a, b){ return (a-b); }
+		function numOrdD(a, b){ return (b-a); }
+
 	</script>
 </head>
 
