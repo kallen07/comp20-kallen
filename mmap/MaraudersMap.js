@@ -42,7 +42,7 @@ function getData()
 	{
 	xhr = new XMLHttpRequest();
 
-	var url = "https://secret-about-box.herokuapp.com/sendLocation";
+	var url = "https://damp-depths-5551.herokuapp.com/sendLocation";
 	xhr.open("POST", url, true);
 
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
