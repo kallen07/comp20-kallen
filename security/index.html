@@ -44,8 +44,17 @@
       <div class="row">
       	<div class="col-sm-12" id="introduction">
       		<h2> Introduction </h2>
-      		<p> The purpose of this assessment was to provide a detailed overview of any security and privacy issues associated with a web application as well as a web server written by <a href="#"> @nameHere </a>. The web application is a "Maurader's Map", which, 1. retrieves a user's current location and send it to a database server and 2. retrives and displays the locations of other people who have submitted their locations.
-      		<p> Provide a description of the product and what you were hired to do </p>
+      		<p> 
+            The purpose of this assessment was to provide an overview of any security and privacy issues associated with a web application and a web server written by <a href="https://github.com/aditiashok"> Aditi Ashok </a>. This document also details possible solutions to the issues identified. The web application that is being assessed is a "Maurader's Map" that,
+            <ul> 
+              <li> 1. retrieves the user's current location and sends it to a database server </li>
+              <li> 2. retrives and displays the locations of other people who have submitted their locations. </li>
+            </ul>
+            The web application sends data to a web server developed using Heroku, Node.js, and the Express web Framework. The web server interacts with a MongoDB database to maintain and serve login information.
+          </p>
+          <p><span class="stress">
+            An important note about the client's work: </span> the client was required to comply with strict specifiications when she built both the web application and the web server. In particular, she was neither required nor instructed to implement authentication. Thus, a fundemental security flaw in the web application is that it will give any user all the login information in the database. Additionally, since the web application is associated with a single login, any user with the link to the web application can change the position of that login. Which means that the login information may not be correct. Furthermore, the web server does not ask for authentication from the client before information is put into the database, which leads to several Cross-Site Scripting (XSS) vulnerabilities. These are detailed below.
+          </p>
       	</div>
       </div>
 
@@ -69,10 +78,11 @@
       		
       		<div class="col-sm-6">
 	      		<p>Location / page where issue was found</p>
-				<p>Severity of issue (e.g., low, medium , or high). Justify your answer.</p>
-				<p>Description of issue. How did you find it? A screenshot of problem is excellent. </p>
-				<p>Resolution. How did you resolve the issue? Show code if possible.</p>
-			</div>
+				    <p>Severity of issue (e.g., low, medium , or high). Justify your answer.</p>
+				    <p>Description of issue. How did you find it? A screenshot of problem is excellent. </p>
+				    <p>Resolution. How did you resolve the issue? Show code if possible.</p>
+			    </div>
+
       		<div class="col-sm-6">
       			<p> Proof of vulnerability. Screenshots are ideal. </p>
       		</div>
