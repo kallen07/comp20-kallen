@@ -33,3 +33,5 @@ Severity of issue (e.g., low, medium , or high). Justify your answer.
 Description of issue. How did you find it? A screenshot of problem is excellent.
 Proof of vulnerability. Screenshots are ideal.
 Resolution. How did you resolve the issue? Show code if possible.
+
+Additionally, since the web application is associated with a single login, any user with a link to the web application can change the position of that login. This means that it would be relatively easy to abuse the API to corrupt the database's login information. 

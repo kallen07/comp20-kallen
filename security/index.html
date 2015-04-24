@@ -54,7 +54,7 @@
           The web application sends data to a web server that was developed using Heroku, Node.js, and the Express web Framework. The web server interacts with a MongoDB database to maintain and serve login information.
         </p>
         <p><span class="stress">
-          An important note about the client's work and the scope of the assessment: </span> the client was required to comply with strict specifiications when she built both the web application and the web server. In particular, she was neither required nor instructed to implement authentication. Thus, a fundemental security flaw in the web application is that it will give any user all the login information in the database. Additionally, since the web application is associated with a single login, any user with a link to the web application can change the position of that login. This means that it would be relatively easy to abuse the API to corrupt the database's login information. This assessment focuses on insecurities in the given code rather than fundemental design flaws.
+          An important note about the scope of the assessment: </span> the client was required to comply with strict specifiications when she built both the web application and the web server. In particular, she was neither required nor instructed to implement authentication. This assessment focuses on the ways that the API can be abused as well as the insecurities in the given code.
         </p>
     	</div>
     </div>
@@ -62,8 +62,7 @@
     <div class="row">
     	<div class="col-sm-12" id="methodology">
     		<h2>Methodology</h2>
-        <p> The first part of this assesment relied on "black-box" testing in oreder to simulate a hacker's environment. After most of the obvious security flaws had been identified, the code was reviewed for further inspection. </p>
-    		<p>Describe your methodology pen testing the application, including the tools that you used</p>
+        <p> The first part of this assesment relied on "black-box" testing in oreder to simulate a hacker's environment. This testing was done using curl and a modern web browser. After most of the obvious security flaws had been identified, the code was reviewed for further inspection. </p>
     	</div>
     </div>
 
@@ -95,7 +94,7 @@
             <p><img src="before_hack.png" alt="before hack" title="Before script injection"/>
             <img src="XSS_alert.png" alt="after hack" title="After script injection"/></p>
 
-  		      <p><span class="stress"> Resolution: </span> To fix this issue, the server needs to validate the user input before putting it in the database. The data from the "lat" and "lng" fields should be converted into floating point numbers and then checked to ensure that the values are numbers.</p>
+  		      <p><span class="stress"> Resolution: </span> to fix this issue, the server needs to validate the user input before putting it in the database. The data from the "lat" and "lng" fields should be converted into floating point numbers and then checked to ensure that the values are numbers.</p>
 
             <p><pre><code> 
         var lat = parseFloat(request.body.lat);
@@ -115,6 +114,22 @@
           </div>
 			  </div>
 
+      <div class="col-sm-12">
+          <h4>2. Displaying User Information Without Authentication </h4>
+
+          <div class="col-sm-12">
+            <p>Path to attack: GET / or POST /sendLocation </p>
+            <p>Severity of issue: <span class="high">HIGH</span>. Any user is able to access all the login data in the database. This is an enormous privacy issue because users may be unware of the fact and use their real names to login rather than an alias. </p>
+            <p>This issue was discovered by accessing the index page of the web server. All the information in the database is also returned when a POST request is sent to /sendLocation, given that a "login", "lat", and "lng" are provided.</p>
+
+            <p><img src="index_privacy.png" alt="privacy issue with index" title="All user information displayed on index page"/>
+            <img src="post_privacy.png" alt="privacy issue with /sendLocation" title="User info displayed after POST /sendLocation"/></p>
+
+
+            <p><span class="stress"> Resolution: </span> a server needs to require authentication to view the index page, as well as to send information via POST to the /sendLocation API. The client may wish to implement up a separate authentication server that monitors communication between the client and the server that interacts with the database. Several tutorials regarding security when using MongoDB can be found <a href="http://docs.mongodb.org/manual/administration/security/">here</a>.</p>
+
+          </div>
+        </div>
 
     	</div>
     </div>
