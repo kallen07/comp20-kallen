@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 	
-	<title>Maurader's Map Security Assesment</title>
+	<title>Maurader's Map Security Assessment</title>
 	<meta name="author" content="Kalina Allen"/>
 	<meta name="description" content="Comp20 Assignment 4: Security and Privacy Assessment of Client-Side and Server-Side">
 	<meta name="keywords" content="Kalina, Allen, security, privacy, assignement 4, assessment"/>
@@ -22,83 +22,112 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
-    <link href="style.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
 
 </head>
 
 <body>
-    <div class="container">
 
-      <div class="row">
-      	<div class="col-sm-12" id="loginInfo">
+  <div class="container">
 
-      	  <h1> Maurader's Map Security Assesment <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></h1>
+    <div class="row">
+    	<div class="col-sm-12" id="loginInfo">
 
-          <p class="paragraph">Prepared by <a href="http://www.kalinaallen.com"> Kalina Allen, </a> 04/23/2015 </p>
+    	  <h1> Maurader's Map Security Assessment <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></h1>
 
-    	  </div>
-      </div>
+        <p class="paragraph">Prepared by <a href="http://www.kalinaallen.com"> Kalina Allen</a>, 04/23/2015 </p>
 
-      <div class="row">
-      	<div class="col-sm-12" id="introduction">
-      		<h2> Introduction </h2>
-      		<p> 
-            The purpose of this assessment was to provide an overview of any security and privacy issues associated with a web application and a web server written by <a href="https://github.com/aditiashok"> Aditi Ashok </a>. This document also details possible solutions to the issues identified. The web application that is being assessed is a "Maurader's Map" that,
-            <ul> 
-              <li> 1. retrieves the user's current location and sends it to a database server </li>
-              <li> 2. retrives and displays the locations of other people who have submitted their locations. </li>
-            </ul>
-            The web application sends data to a web server developed using Heroku, Node.js, and the Express web Framework. The web server interacts with a MongoDB database to maintain and serve login information.
-          </p>
-          <p><span class="stress">
-            An important note about the client's work: </span> the client was required to comply with strict specifiications when she built both the web application and the web server. In particular, she was neither required nor instructed to implement authentication. Thus, a fundemental security flaw in the web application is that it will give any user all the login information in the database. Additionally, since the web application is associated with a single login, any user with the link to the web application can change the position of that login. Which means that the login information may not be correct. Furthermore, the web server does not ask for authentication from the client before information is put into the database, which leads to several Cross-Site Scripting (XSS) vulnerabilities. These are detailed below.
-          </p>
-      	</div>
-      </div>
-
-      <div class="row">
-      	<div class="col-sm-12" id="methodology">
-      		<h2>Methodology</h2>
-      		<p>Describe your methodology pen testing the application, including the tools that you used</p>
-      	</div>
-      </div>
-
-      <div class="row">
-      	<div class="col-sm-12" id="abstract">
-      		<h2>Abstract of Findings</h2>
-      		<p>Provide an overview of all the security and privacy issues you identified. This section should be written for non-technical managers who do not have technical expertise and do not have time to read the entire document. Write this section using lay language.</p>
-      	</div>
-      </div>
-
-      <div class="row">
-      	<div class="col-sm-12" id="issues">
-      		<h2>Issues</h2>
-      		
-      		<div class="col-sm-6">
-	      		<p>Location / page where issue was found</p>
-				    <p>Severity of issue (e.g., low, medium , or high). Justify your answer.</p>
-				    <p>Description of issue. How did you find it? A screenshot of problem is excellent. </p>
-				    <p>Resolution. How did you resolve the issue? Show code if possible.</p>
-			    </div>
-
-      		<div class="col-sm-6">
-      			<p> Proof of vulnerability. Screenshots are ideal. </p>
-      		</div>
-      		
-      	</div>
-      </div>
-
-       <div class="row">
-      	<div class="col-sm-12" id="conclusion">
-      		<h2>Conclusion</h2>
-      		<p>You can also list future considerations and recommendations with costs.</p>
-      	</div>
-      </div>
-
-
+  	  </div>
     </div>
+
+    <div class="row">
+    	<div class="col-sm-12" id="introduction">
+    		<h2> Introduction </h2>
+    		<p> 
+          The purpose of this assessment was to provide an overview of any security and privacy issues associated with a web application and a web server written by <a href="https://github.com/aditiashok"> Aditi Ashok </a>. This document also details possible solutions to the issues identified. The web application that is being assessed is a "Maurader's Map", which
+          <ul> 
+            <li> 1. retrieves the user's current location and sends it to a database server </li>
+            <li> 2. retrives and displays the locations of other people who have submitted their locations. </li>
+          </ul>
+          The web application sends data to a web server that was developed using Heroku, Node.js, and the Express web Framework. The web server interacts with a MongoDB database to maintain and serve login information.
+        </p>
+        <p><span class="stress">
+          An important note about the client's work and the scope of the assessment: </span> the client was required to comply with strict specifiications when she built both the web application and the web server. In particular, she was neither required nor instructed to implement authentication. Thus, a fundemental security flaw in the web application is that it will give any user all the login information in the database. Additionally, since the web application is associated with a single login, any user with a link to the web application can change the position of that login. This means that it would be relatively easy to abuse the API to corrupt the database's login information. This assessment focuses on insecurities in the given code rather than fundemental design flaws.
+        </p>
+    	</div>
+    </div>
+
+    <div class="row">
+    	<div class="col-sm-12" id="methodology">
+    		<h2>Methodology</h2>
+        <p> The first part of this assesment relied on "black-box" testing in oreder to simulate a hacker's environment. After most of the obvious security flaws had been identified, the code was reviewed for further inspection. </p>
+    		<p>Describe your methodology pen testing the application, including the tools that you used</p>
+    	</div>
+    </div>
+
+    <div class="row">
+    	<div class="col-sm-12" id="abstract">
+    		<h2>Abstract of Findings</h2>
+    		<p>Provide an overview of all the security and privacy issues you identified. This section should be written for non-technical managers who do not have technical expertise and do not have time to read the entire document. Write this section using lay language.</p>
+    	</div>
+    </div>
+
+    <div class="row">
+    	<div class="col-sm-12" id="issues">
+    		<h2>Issues</h2>
+    		
+    		<div class="col-sm-12">
+          <h4>1. Database Injection using Cross-Site Scripting</h4>
+
+          <div class="col-sm-12">
+        		<p>Path to attack: POST /sendLocation API</p>
+  			    <p>Severity of issue: <span class="high">HIGH</span>. A malicious user could put almost anything in the database using the /sendLocation API because the data in the login field is not validated in any way. </p>
+  			    <p>By using curl, one is able to inject data into the database as long as the following three fields are provided: "login", "lat", and "lng". All three fields can contain Javascript. Database injection was tested using the following commands:
+            </p>
+
+            <p><code>curl -d 'login=&ltscript&gtalert("H@ck3d");&lt/script&gt&lat=3&lng=6'</code></p>
+            <p><code>curl -d 'login=&ltscript&gtwindow.location.replace("http://stackoverflow.com");&lt/script&gt&lat=3&lng=6'</code></p>
+
+            <p>The first command brought up an alert window, as shown below, and the second command successfully redirected the page.</p>
+
+            <p><img src="before_hack.png" alt="before hack" title="Before script injection"/>
+            <img src="XSS_alert.png" alt="after hack" title="After script injection"/></p>
+
+  		      <p><span class="stress"> Resolution: </span> To fix this issue, the server needs to validate the user input before putting it in the database. The data from the "lat" and "lng" fields should be converted into floating point numbers and then checked to ensure that the values are numbers.</p>
+
+            <p><pre><code> 
+        var lat = parseFloat(request.body.lat);
+        var lng = parseFloat(request.body.lng);
+        if( lat == undefined || lng == undefined || isNaN(lat) || isNaN(lng) ) {
+          response.send( {"error":"Whoops, something is wrong with your data!"} )
+        }
+            </code></pre></p>
+
+            <p> There are a few ways to ensure that a user cannot manipulate the "login" field. 
+              <ul>
+                <li>1. Limit the number of characters that can be put into the "login" field, and reject the data if the user attempts to send more than specified. </li>
+                <li>2. Convert all special characters to their HTML-code equvalents. </li>
+              </ul>
+            </p>
+
+          </div>
+			  </div>
+
+
+    	</div>
+    </div>
+
+     <div class="row">
+    	<div class="col-sm-12" id="conclusion">
+    		<h2>Conclusion</h2>
+    		<p>You can also list future considerations and recommendations with costs.</p>
+    	</div>
+    </div>
+
+
+  </div>
 
 </body>
 

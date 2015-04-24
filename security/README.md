@@ -19,3 +19,17 @@
 	+ TBC
 
 *Don't forget to merge the master and gh-pages branch*
+
+links:
+
+http://tuftsdev.github.io/comp20-aashok/mmap/
+
+https://damp-retreat-1013.herokuapp.com/
+
+for each issue:
+Issue (e.g., database injection, really bad programming practice)
+Location / page where issue was found
+Severity of issue (e.g., low, medium , or high). Justify your answer.
+Description of issue. How did you find it? A screenshot of problem is excellent.
+Proof of vulnerability. Screenshots are ideal.
+Resolution. How did you resolve the issue? Show code if possible.
